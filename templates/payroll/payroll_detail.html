@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Detalle del Rol de Pago{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4">Detalle del Rol de Pago</h1>
+    <table class="table table-striped table-bordered">
+        <tr>
+            <th>Empleado</th>
+            <td>{{ rol.empleado }}</td>
+        </tr>
+        <tr>
+            <th>Mes</th>
+            <td>{{ rol.mes }}</td>
+        </tr>
+        <tr>
+            <th>Año</th>
+            <td>{{ rol.anio }}</td>
+        </tr>
+        <tr>
+            <th>Salario Base</th>
+            <td>${{ rol.salario_base|floatformat:2 }}</td>
+        </tr>
+        <tr>
+            <th>Deducciones (IESS)</th>
+            <td>${{ rol.iess|floatformat:2 }}</td>
+        </tr>
+        <tr>
+            <th>Total a Pagar</th>
+            <td>${{ rol.neto|floatformat:2 }}</td>
+        </tr>
+    </table>
+    <a href="{% url 'listar_roles_pago' %}" class="btn btn-secondary">Volver a la lista</a>
+</div>
+{% endblock %}

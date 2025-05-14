@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {% if form.instance.pk %}Actualizar Empleado{% else %}Crear Empleado{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4 text-center">{% if form.instance.pk %}Actualizar Empleado{% else %}Crear Empleado{% endif %}</h2>
+
+    <!-- Mostrar errores del formulario -->
+    {% if form.errors %}
+        <div class="alert alert-danger">
+            <ul>
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <li><strong>{{ field.label }}:</strong> {{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <form method="post" novalidate>
+        {% csrf_token %}
+        <div class="row">
+            <!-- Cédula -->
+            <div class="col-md-6 mb-3">
+                <label for="id_cedula" class="form-label">{{ form.cedula.label }}</label>
+                {{ form.cedula }}
+            </div>
+            <!-- Nombre -->
+            <div class="col-md-6 mb-3">
+                <label for="id_nombre" class="form-label">{{ form.nombre.label }}</label>
+                {{ form.nombre }}
+            </div>
+        </div>
+        <div class="row">
+            <!-- Apellido -->
+            <div class="col-md-6 mb-3">
+                <label for="id_apellido" class="form-label">{{ form.apellido.label }}</label>
+                {{ form.apellido }}
+            </div>
+            <!-- Sexo -->
+            <div class="col-md-6 mb-3">
+                <label for="id_sexo" class="form-label">{{ form.sexo.label }}</label>
+                {{ form.sexo }}
+            </div>
+        </div>
+        <div class="row">
+            <!-- Cargo -->
+            <div class="col-md-4 mb-3">
+                <label for="id_cargo" class="form-label">{{ form.cargo.label }}</label>
+                {{ form.cargo }}
+            </div>
+            <!-- Departamento -->
+            <div class="col-md-4 mb-3">
+                <label for="id_departamento" class="form-label">{{ form.departamento.label }}</label>
+                {{ form.departamento }}
+            </div>
+            <!-- Tipo de Contrato -->
+            <div class="col-md-4 mb-3">
+                <label for="id_tipo_contrato" class="form-label">{{ form.tipo_contrato.label }}</label>
+                {{ form.tipo_contrato }}
+            </div>
+        </div>
+        <div class="row">
+            <!-- Fecha de Ingreso -->
+            <div class="col-md-6 mb-3">
+                <label for="id_fecha_ingreso" class="form-label">{{ form.fecha_ingreso.label }}</label>
+                {{ form.fecha_ingreso }}
+            </div>
+            <!-- Salario -->
+            <div class="col-md-6 mb-3">
+                <label for="id_salario" class="form-label">{{ form.salario.label }}</label>
+                {{ form.salario }}
+            </div>
+        </div>
+        <div class="d-flex justify-content-between">
+            <button type="submit" class="btn btn-primary">
+                {% if form.instance.pk %}Actualizar{% else %}Crear{% endif %}
+            </button>
+            <a href="{% url 'listar_empleados' %}" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

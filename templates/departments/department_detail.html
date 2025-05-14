@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Detalles del Departamento{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+    <h1 class="mb-4">Detalles del Departamento</h1>
+
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">{{ departamento.nombre }} </h4>
+            <p class="card-text"><strong>Descripción:</strong> {{ departamento.descripcion }}</p>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a href="{% url 'actualizar_departamento' departamento.id %}" class="btn btn-primary">✏️ Editar</a>
+        <a href="{% url 'eliminar_departamento' departamento.id %}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este Departamento?');">🗑️ Eliminar</a>
+        <a href="{% url 'listar_departamentos' %}" class="btn btn-secondary">⬅️ Volver a la lista</a>
+    </div>
+</div>
+{% endblock %}

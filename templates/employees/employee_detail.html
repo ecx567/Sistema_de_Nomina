@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Detalles del Empleado{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Detalles del Empleado</h1>
+
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">{{ empleado.nombre }} {{ empleado.apellido }}</h4>
+            <p class="card-text"><strong>Cedula:</strong> {{ empleado.cedula }}</p>
+            <p class="card-text"><strong>Sexo:</strong> {{ empleado.sexo }} </p>
+            <p class="card-text"><strong>Cargo:</strong> {{ empleado.cargo.nombre }}</p>
+            <p class="card-text"><strong>Departamento:</strong> {{ empleado.departamento.nombre }}</p>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a href="{% url 'actualizar_empleado' empleado.id %}" class="btn btn-primary">✏️ Editar</a>
+        <a href="{% url 'eliminar_empleado' empleado.id %}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este empleado?');">🗑️ Eliminar</a>
+        <a href="{% url 'listar_empleados' %}" class="btn btn-secondary">⬅️ Volver a la lista</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Confirmación de Eliminación{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4 text-danger">Confirmación de Eliminación</h1>
+    <p class="lead">
+        ¿Estás seguro de que deseas eliminar el rol de pago de 
+        <strong>{{ rol.empleado.nombre }}</strong> correspondiente al mes de 
+        <strong>{{ rol.mes }}</strong> del año <strong>{{ rol.anio }}</strong>?
+    </p>
+
+    <form method="post" class="mt-4">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Confirmar Eliminación</button>
+        <a href="{% url 'listar_roles_pago' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

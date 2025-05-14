@@ -1,0 +1,9 @@
+
+body {
+    background-image: url('/static/images/fondo_login.jpg');
+    background-size: cover; /* Esto asegura que la imagen cubra toda la pantalla */
+    background-position: center center; /* Centra la imagen */
+    background-attachment: fixed; /* La imagen permanece fija cuando se desplaza */
+    height: 100vh; /* Hace que la imagen ocupe toda la altura de la ventana */
+    margin: 0;
+}

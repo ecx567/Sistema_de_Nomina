@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {% if contract %}Actualizar Contrato{% else %}Crear Contrato{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">{% if contract %}Actualizar{% else %}Crear{% endif %} Contrato</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <!-- Mostrar errores del formulario -->
+        {% if form.errors %}
+            <div class="alert alert-danger">
+                <ul>
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <li><strong>{{ field.label }}:</strong> {{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        <div class="form-group">
+            <label for="empleado">Empleado:</label>
+            <select class="form-control" id="empleado" name="empleado" required>
+                {% for empleado in empleados %}
+                    <option value="{{ empleado.id }}"
+                        {% if contract and contract.empleado.id == empleado.id %}selected{% endif %}>
+                        {{ empleado.nombre }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="tipo_contrato">Tipo de Contrato:</label>
+            <select class="form-control" id="tipo_contrato" name="tipo_contrato" required>
+                {% for tipo in tipos_contrato %}
+                    <option value="{{ tipo.id }}"
+                        {% if contract and contract.tipo_contrato.id == tipo.id %}selected{% endif %}>
+                        {{ tipo.nombre }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="fecha_inicio">Fecha de Inicio:</label>
+            <input type="date" class="form-control" id="fecha_inicio" name="fecha_inicio"
+                value="{% if contract %}{{ contract.fecha_inicio|date:'Y-m-d' }}{% endif %}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="fecha_fin">Fecha de Fin:</label>
+            <input type="date" class="form-control" id="fecha_fin" name="fecha_fin"
+                value="{% if contract %}{{ contract.fecha_fin|date:'Y-m-d' }}{% endif %}">
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            {% if contract %}Actualizar{% else %}Crear{% endif %}
+        </button>
+        <a href="{% url 'listar_contratos' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

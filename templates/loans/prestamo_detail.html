@@ -1,0 +1,30 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Detalles del Préstamo{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Detalles del Préstamo</h1>
+
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Préstamo de {{ prestamo.empleado.nombre }} {{ prestamo.empleado.apellido }}</h4>
+            <p class="card-text"><strong>Tipo de Préstamo:</strong> {{ prestamo.tipo_prestamo.descripcion }}</p>
+            <p class="card-text"><strong>Fecha del Préstamo:</strong> {{ prestamo.fecha_prestamo }}</p>
+            <p class="card-text"><strong>Monto:</strong> ${{ prestamo.monto|floatformat:2 }}</p>
+            <p class="card-text"><strong>Interés:</strong> ${{ prestamo.interes|floatformat:2 }}</p>
+            <p class="card-text"><strong>Monto a Pagar:</strong> ${{ prestamo.monto_pagar|floatformat:2 }}</p>
+            <p class="card-text"><strong>Número de Cuotas:</strong> {{ prestamo.numero_cuotas }}</p>
+            <p class="card-text"><strong>Cuota Mensual:</strong> ${{ prestamo.cuota_mensual|floatformat:2 }}</p>
+            <p class="card-text"><strong>Saldo:</strong> ${{ prestamo.saldo|floatformat:2 }}</p>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a href="{% url 'actualizar_prestamo' prestamo.id %}" class="btn btn-primary">✏️ Editar</a>
+        <a href="{% url 'eliminar_prestamo' prestamo.id %}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este préstamo?');">🗑️ Eliminar</a>
+        <a href="{% url 'listar_prestamos' %}" class="btn btn-secondary">⬅️ Volver a la lista</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4 text-center">¡Bienvenido a Nómina!</h1>
+    <p class="text-center lead">Sistema integral de gestión de nóminas</p>
+
+    <div class="row">
+        <!-- Tarjetas informativas -->
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Empleados Activos</h5>
+                    <p class="card-text">+3% desde el mes pasado</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Nómina Mensual</h5>
+                    <p class="card-text">$ Sin cambios</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Próximo Pago</h5>
+                    <p class="card-text">5 días restantes</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Recibos Pendientes</h5>
+                    <p class="card-text">2 menos que ayer</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Acciones rápidas -->
+    <div class="mt-5">
+        <h2 class="mb-4">Acciones Rápidas</h2>
+        <div class="row">
+            <div class="col-md-3">
+                <a href="{% url 'crear_rol_pago' %}" class="btn btn-primary btn-block">Nueva Nómina</a>
+            </div>
+            <div class="col-md-3">
+                <a href="{% url 'crear_empleado' %}" class="btn btn-success btn-block">Nuevo Empleado</a>
+            </div>
+            <div class="col-md-3">
+                <a href="{% url 'listar_roles_pago' %}" class="btn btn-info btn-block">Procesar Pagos</a>
+            </div>
+            <div class="col-md-3">
+                <a href="{% url 'listar_roles_pago' %}" class="btn btn-warning btn-block">Generar Reportes</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

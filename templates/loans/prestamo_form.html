@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load form_filters %}
+
+{% block title %}
+    {% if form.instance.pk %}Actualizar Préstamo{% else %}Crear Préstamo{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4 text-center">{% if form.instance.pk %}Actualizar Préstamo{% else %}Crear Préstamo{% endif %}</h2>
+
+    <!-- Mostrar errores del formulario -->
+    {% if form.errors %}
+        <div class="alert alert-danger">
+            <ul>
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <li><strong>{{ field.label }}:</strong> {{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <form method="POST" novalidate>
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="id_empleado" class="form-label">Empleado</label>
+            {{ form.empleado|add_class:"form-control" }}
+        </div>
+        <div class="mb-3">
+            <label for="id_tipo_prestamo" class="form-label">Tipo de Préstamo</label>
+            {{ form.tipo_prestamo|add_class:"form-control" }}
+        </div>
+        <div class="mb-3">
+            <label for="id_fecha_prestamo" class="form-label">Fecha del Préstamo</label>
+            {{ form.fecha_prestamo|add_class:"form-control" }}
+        </div>
+        <div class="mb-3">
+            <label for="id_monto" class="form-label">Monto</label>
+            {{ form.monto|add_class:"form-control" }}
+        </div>
+        <div class="mb-3">
+            <label for="id_numero_cuotas" class="form-label">Número de Cuotas</label>
+            {{ form.numero_cuotas|add_class:"form-control" }}
+        </div>
+        <button type="submit" class="btn btn-primary w-100">
+            {% if form.instance.pk %}Actualizar{% else %}Crear{% endif %}
+        </button>
+        <a href="{% url 'listar_prestamos' %}" class="btn btn-secondary w-100 mt-2">Cancelar</a>
+    </form>
+</div>
+{% endblock %}
