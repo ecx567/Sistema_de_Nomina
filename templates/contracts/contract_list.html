@@ -46,5 +46,38 @@
         </tbody>
     </table>
 </div>
+<!-- Paginación -->
+<div class="d-flex justify-content-center mt-4">
+    <nav aria-label="Paginación de contratos">
+        <ul class="pagination">
+            {% if contratos.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page=1{% if query %}&q={{ query }}{% endif %}">&laquo; Primera</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ contratos.previous_page_number }}{% if query %}&q={{ query }}{% endif %}">Anterior</a>
+                </li>
+            {% endif %}
+            {% for num in contratos.paginator.page_range %}
+                {% if contratos.number == num %}
+                    <li class="page-item active"><a class="page-link">{{ num }}</a></li>
+                {% else %}
+                    <li class="page-item"><a class="page-link" href="?page={{ num }}{% if query %}&q={{ query }}{% endif %}">{{ num }}</a></li>
+                {% endif %}
+            {% endfor %}
+            {% if contratos.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ contratos.next_page_number }}{% if query %}&q={{ query }}{% endif %}">Siguiente</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ contratos.paginator.num_pages }}{% if query %}&q={{ query }}{% endif %}">Última &raquo;</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+</div>
+
+
 
 {% endblock %}

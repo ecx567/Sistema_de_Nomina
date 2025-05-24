@@ -99,4 +99,37 @@
         </div>
     </form>
 </div>
+
+
+
+<script>
+function calcularRolPago() {
+    // Obtener valores
+    let salarioBase = parseFloat(document.getElementById('id_salario_base').value) || 0;
+    let horasExtra = parseFloat(document.getElementById('id_horas_extra').value) || 0;
+    let bono = parseFloat(document.getElementById('id_bono').value) || 0;
+
+    // Cálculos
+    let totalIngresos = salarioBase + horasExtra + bono;
+    let iess = salarioBase * 0.0945;
+    let totalDeducciones = iess;
+    let neto = totalIngresos - totalDeducciones;
+
+    // Asignar valores a los campos (si existen)
+    if(document.getElementById('id_tot_ing')) document.getElementById('id_tot_ing').value = totalIngresos.toFixed(2);
+    if(document.getElementById('id_iess')) document.getElementById('id_iess').value = iess.toFixed(2);
+    if(document.getElementById('id_tot_des')) document.getElementById('id_tot_des').value = totalDeducciones.toFixed(2);
+    if(document.getElementById('id_neto')) document.getElementById('id_neto').value = neto.toFixed(2);
+}
+
+// Ejecutar al cambiar salario base, horas extra o bono
+document.addEventListener('DOMContentLoaded', function() {
+    ['id_salario_base', 'id_horas_extra', 'id_bono'].forEach(function(id) {
+        let el = document.getElementById(id);
+        if(el) el.addEventListener('input', calcularRolPago);
+    });
+    calcularRolPago(); // Inicial
+});
+</script>
+
 {% endblock %}

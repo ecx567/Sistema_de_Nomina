@@ -52,5 +52,35 @@
         </tbody>
     </table>
 </div>
+<!-- Paginación -->
+<div class="d-flex justify-content-center mt-4">
+    <nav aria-label="Paginación de roles de pago">
+        <ul class="pagination">
+            {% if roles.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page=1{% if query %}&q={{ query }}{% endif %}">&laquo; Primera</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ roles.previous_page_number }}{% if query %}&q={{ query }}{% endif %}">Anterior</a>
+                </li>
+            {% endif %}
+            {% for num in roles.paginator.page_range %}
+                {% if roles.number == num %}
+                    <li class="page-item active"><a class="page-link">{{ num }}</a></li>
+                {% else %}
+                    <li class="page-item"><a class="page-link" href="?page={{ num }}{% if query %}&q={{ query }}{% endif %}">{{ num }}</a></li>
+                {% endif %}
+            {% endfor %}
+            {% if roles.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ roles.next_page_number }}{% if query %}&q={{ query }}{% endif %}">Siguiente</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ roles.paginator.num_pages }}{% if query %}&q={{ query }}{% endif %}">Última &raquo;</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
 
 {% endblock %}

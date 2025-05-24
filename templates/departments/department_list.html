@@ -62,13 +62,11 @@
                     <a class="page-link" href="?page={{ departamentos.previous_page_number }}{% if query %}&q={{ query }}{% endif %}">Anterior</a>
                 </li>
             {% endif %}
-
             <li class="page-item active">
                 <span class="page-link">
                     Página {{ departamentos.number }} de {{ departamentos.paginator.num_pages }}
                 </span>
             </li>
-
             {% if departamentos.has_next %}
                 <li class="page-item">
                     <a class="page-link" href="?page={{ departamentos.next_page_number }}{% if query %}&q={{ query }}{% endif %}">Siguiente</a>

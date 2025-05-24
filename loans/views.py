@@ -6,19 +6,29 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from .models import Prestamo
 from .forms import PrestamoForm
+from django.core.paginator import Paginator
+
 
 @login_required
 def listar_prestamos(request):
     query = request.GET.get('q', '')
-    prestamos = Prestamo.objects.all()
+    prestamos_list = Prestamo.objects.all()
 
     if query:
-        prestamos = prestamos.filter(
+        prestamos_list = prestamos_list.filter(
             Q(empleado__nombre__icontains=query) |
             Q(tipo_prestamo__descripcion__icontains=query)
         )
 
-    return render(request, 'loans/prestamo_list.html', {'prestamos': prestamos})
+    paginator = Paginator(prestamos_list, 2)  
+    page_number = request.GET.get('page')
+    prestamos = paginator.get_page(page_number)
+
+    return render(request, 'loans/prestamo_list.html', {
+        'prestamos': prestamos,
+        'query': query,
+    })
+
 
 @login_required
 def crear_prestamo(request):

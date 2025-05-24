@@ -10,26 +10,21 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def listar_roles_pago(request):
-    query = request.GET.get('q', '')
     roles = Rol.objects.all()
-
+    query = request.GET.get('q')
     if query:
         roles = roles.filter(
             Q(empleado__nombre__icontains=query) |
             Q(empleado__apellido__icontains=query) |
             Q(mes__icontains=query) |
             Q(anio__icontains=query)
-        )
+        ).distinct()
 
-    # Paginación
-    paginator = Paginator(roles, 10)  # Mostrar 10 roles por página
+    paginator = Paginator(roles, 2)
     page_number = request.GET.get('page')
-    roles_paginated = paginator.get_page(page_number)
+    roles = paginator.get_page(page_number)
+    return render(request, 'payroll/payroll_list.html', {'roles': roles})   
 
-    return render(request, 'payroll/payroll_list.html', {
-        'roles': roles_paginated,
-        'query': query
-    })
 
 @login_required
 def crear_rol_pago(request):

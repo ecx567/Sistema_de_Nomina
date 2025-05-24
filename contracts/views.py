@@ -8,24 +8,30 @@ from .models import Contrato, TipoContrato
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
+from django.core.paginator import Paginator
 
 @login_required
 def listar_contratos(request):
-    query = request.GET.get('q', '')  # Captura el parámetro de búsqueda
+    query = request.GET.get('q', '')
+    contratos = Contrato.objects.all()
+
     if query:
-        contratos = Contrato.objects.filter(
+        contratos = contratos.filter(
             Q(empleado__nombre__icontains=query) |
             Q(empleado__apellido__icontains=query) |
-            Q(empleado__cedula__icontains=query) |
             Q(tipo_contrato__nombre__icontains=query)
         )
-    else:
-        contratos = Contrato.objects.all()  # Si no hay búsqueda, muestra todos los contratos
+
+    # Paginación
+    paginator = Paginator(contratos, 2)  
+    page_number = request.GET.get('page')
+    contratos_paginated = paginator.get_page(page_number)
 
     return render(request, 'contracts/contract_list.html', {
-        'contratos': contratos,
+        'contratos': contratos_paginated,
         'query': query
     })
+
 
 @login_required
 def crear_contrato(request):
